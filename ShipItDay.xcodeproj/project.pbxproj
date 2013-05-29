@@ -24,6 +24,10 @@
 		2B0B0F671756A4F600178F8A /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0B0F661756A4F600178F8A /* SecondViewController.m */; };
 		2B0B0F691756A4F600178F8A /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B0B0F681756A4F600178F8A /* second.png */; };
 		2B0B0F6B1756A4F600178F8A /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B0B0F6A1756A4F600178F8A /* second@2x.png */; };
+		2B0B0F741756A55600178F8A /* libBump.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0B0F731756A55600178F8A /* libBump.a */; };
+		2B0B0F761756A69300178F8A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0B0F751756A69300178F8A /* CFNetwork.framework */; };
+		2B0B0F781756A69E00178F8A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0B0F771756A69E00178F8A /* CoreLocation.framework */; };
+		2B0B0F7A1756A6A700178F8A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0B0F791756A6A700178F8A /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +54,11 @@
 		2B0B0F661756A4F600178F8A /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		2B0B0F681756A4F600178F8A /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
 		2B0B0F6A1756A4F600178F8A /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
+		2B0B0F721756A55600178F8A /* BumpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BumpClient.h; sourceTree = "<group>"; };
+		2B0B0F731756A55600178F8A /* libBump.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBump.a; sourceTree = "<group>"; };
+		2B0B0F751756A69300178F8A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		2B0B0F771756A69E00178F8A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		2B0B0F791756A6A700178F8A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +66,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B0B0F7A1756A6A700178F8A /* AudioToolbox.framework in Frameworks */,
+				2B0B0F781756A69E00178F8A /* CoreLocation.framework in Frameworks */,
+				2B0B0F761756A69300178F8A /* CFNetwork.framework in Frameworks */,
 				2B0B0F411756A4F600178F8A /* UIKit.framework in Frameworks */,
 				2B0B0F431756A4F600178F8A /* Foundation.framework in Frameworks */,
 				2B0B0F451756A4F600178F8A /* CoreGraphics.framework in Frameworks */,
+				2B0B0F741756A55600178F8A /* libBump.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +82,10 @@
 		2B0B0F341756A4F600178F8A = {
 			isa = PBXGroup;
 			children = (
+				2B0B0F791756A6A700178F8A /* AudioToolbox.framework */,
+				2B0B0F771756A69E00178F8A /* CoreLocation.framework */,
+				2B0B0F751756A69300178F8A /* CFNetwork.framework */,
+				2B0B0F711756A55600178F8A /* libBump */,
 				2B0B0F461756A4F600178F8A /* ShipItDay */,
 				2B0B0F3F1756A4F600178F8A /* Frameworks */,
 				2B0B0F3E1756A4F600178F8A /* Products */,
@@ -125,6 +142,15 @@
 				2B0B0F561756A4F600178F8A /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2B0B0F711756A55600178F8A /* libBump */ = {
+			isa = PBXGroup;
+			children = (
+				2B0B0F721756A55600178F8A /* BumpClient.h */,
+				2B0B0F731756A55600178F8A /* libBump.a */,
+			);
+			path = libBump;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,7 +286,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -285,7 +311,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -299,6 +325,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShipItDay/ShipItDay-Prefix.pch";
 				INFOPLIST_FILE = "ShipItDay/ShipItDay-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libBump\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -310,6 +341,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShipItDay/ShipItDay-Prefix.pch";
 				INFOPLIST_FILE = "ShipItDay/ShipItDay-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libBump\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
