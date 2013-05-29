@@ -7,7 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonHMAC.h>
+#import <CommonCrypto/CommonDigest.h>
 
-@interface SoapConnect : NSObject
+#import "Base64.h"
+
+@interface SoapConnect : NSObject<NSURLConnectionDelegate, NSXMLParserDelegate>
+
+@property(nonatomic, strong) NSString *authToken;
+@property(nonatomic, strong) NSArray *urlStringArray;
+
+- (NSString *)getAuthToken:(NSString *)username password:(NSString *)password;
+
+- (NSString *)hmacsha1:(NSString *)data secret:(NSString *)key;
 
 @end
