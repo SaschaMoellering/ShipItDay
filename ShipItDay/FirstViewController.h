@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface FirstViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIWebView *viewWeb;
 
 @end

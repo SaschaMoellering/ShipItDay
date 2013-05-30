@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SecondViewController.h"
 
-@interface RESTClient : NSObject
+@interface RESTClient : NSObject<NSURLConnectionDelegate>
+
+@property(nonatomic, strong) SecondViewController *target;
+@property(nonatomic, strong) NSMutableArray *pickData;
 
 + (RESTClient *)getInstance;
 
-- (NSArray *)getAdspaces: (NSString *) connectID;
+- (void)getAdspaces: (NSString *) connectID;
 
 @end

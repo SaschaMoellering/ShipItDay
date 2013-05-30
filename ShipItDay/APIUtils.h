@@ -18,5 +18,6 @@
 + (NSString *)getSecrectKey;
 + (NSString *)getPublicKey;
 + (NSString *)hmacsha1:(NSString *)data secret:(NSString *)key;
++ (NSString *) escape: (NSString *) yourInput;
 
 @end

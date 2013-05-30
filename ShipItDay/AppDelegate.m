@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "BumpClient.h"
+#import "SecondViewController.h"
 
 @implementation AppDelegate
 
@@ -22,8 +23,18 @@
     
     [[BumpClient sharedClient] setChannelConfirmedBlock:^(BumpChannelID channel) {
         NSLog(@"Channel with %@ confirmed.", [[BumpClient sharedClient] userIDForChannel:channel]);
-        [[BumpClient sharedClient] sendData:[[NSString stringWithFormat:@"Hello, world!"] dataUsingEncoding:NSUTF8StringEncoding]
+        
+        UIViewController *vc = self.window.rootViewController;
+        
+        if ([vc isMemberOfClass:[SecondViewController class]]) {
+        
+        
+            SecondViewController *svc = (SecondViewController *)vc;
+            NSString *addSpace = [NSString stringWithFormat:@"%@ %@", svc.selectedItem.name, svc.selectedItem.region];
+        
+            [[BumpClient sharedClient] sendData:[addSpace dataUsingEncoding:NSUTF8StringEncoding]
                                   toChannel:channel];
+        }
     }];
     
     [[BumpClient sharedClient] setDataReceivedBlock:^(BumpChannelID channel, NSData *data) {

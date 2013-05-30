@@ -16,8 +16,9 @@
 
 @synthesize authToken, urlStringArray;
 @synthesize soapData;
+@synthesize target;
 
-#pragma Singleton
+#pragma mark Singleton
 
 + (SoapConnect *)getInstance
 {
@@ -32,7 +33,7 @@
     }
 }
 
-#pragma Request-handling
+#pragma mark Request-handling
 
 /* get the response request, if request succeds at server */
 - (void)requestFinished:(ASIHTTPRequest *)request {
@@ -50,42 +51,26 @@
 	
     int statusCode = [request responseStatusCode];
     NSString *statusMessage = [request responseStatusMessage];
-    NSLog(@"Code %i Message :%@  Header :%@  Cookies: %@  ResponseData: %@",statusCode,statusMessage,[request responseHeaders], [request responseCookies],[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding]);
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     [soapData setLength:0];
-    NSLog(@"Response: %@", [response URL]);
 }
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     
     [soapData appendData:data];
-    NSLog(@"Data: %@",[[NSString alloc] initWithData:data encoding: NSASCIIStringEncoding]);
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    
-    NSLog(@"ERROR with theConenction");
 }
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSLog(@"DONE. Received Bytes");
-    
-    NSLog(@"XML Parsing...");
     
     // converts 'XML' DATA into dictionary form
     NSError *parseError = nil;
     NSDictionary *responseValues = [XMLReader dictionaryForXMLData: soapData error:parseError];
-    
-    NSLog(@"values: %@", responseValues);
-    
-    for( NSString *aKey in [responseValues allKeys] )
-    {
-        // do something like a log:
-        NSLog(@"Key: %@", [responseValues objectForKey: aKey]);
-    }
     
     NSMutableDictionary *fieldValues =  [responseValues objectForKey:@"soap:Envelope"];
     fieldValues = [fieldValues objectForKey:@"soap:Body"];
@@ -119,9 +104,12 @@
     [userDefaults setObject: sessionkeyValue forKey:@"SESSIONKEY"];
     NSLog(@"Session Key: %@", sessionkeyValue);
     
+    [target performSelectorOnMainThread:@selector(getAdSpaces)
+                           withObject:nil
+                        waitUntilDone:false];
 }
 
-#pragma Auth-Token and query-parsing
+#pragma mark Auth-Token and query-parsing
 
 // get auth token from zanoxconnect
 - (NSString *)getAuthToken:(NSString *)username password:(NSString *)password {
@@ -169,7 +157,7 @@
     return arrQueryStringData;
 }
 
-#pragma generating timestamps
+#pragma mark generating timestamps
 
 //get timestamp
 - (NSString *)getTimeStamp {
@@ -194,7 +182,7 @@
     return dateString;
 }
 
-#pragma Signature
+#pragma mark Signature
 
 // get signature
 - (NSString *)getSignature: (NSString *)nounceValue{
@@ -215,7 +203,7 @@
     return signature;
 }
 
-#pragma Sign to String
+#pragma mark Sign to String
 
 // get SignToString
 - (NSString *)getSignToStringMethod:(NSString *)nonceString{
@@ -226,16 +214,14 @@
     
     
     NSString *signToString =[NSString stringWithFormat:@"%@%@%@%@", service, method, timestamp, nonceString];
-    NSLog(@" --> Signstring: %@", signToString);
     
     // convert SignToString into UTF8-String
     NSString *utf8String = [NSString stringWithCString:[signToString cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
 
-    NSLog(@"UTF8 String: %@",utf8String);
     return  utf8String;
 }
 
-#pragma SOAP-Requests
+#pragma mark SOAP-Requests
 
 //get SOAP Request for GetSession
 - (NSMutableString *)createSoapRequest {
@@ -272,10 +258,6 @@
 
 //send SOAP Request for GetSession
 - (BOOL)sendSOAPRequest: (NSMutableString *)soapMessage {
-    
-    //log for soap request
-    NSLog(@"SOAP Request: %@", soapMessage);
-    
     
     NSURL *url = [NSURL URLWithString:@"https://auth.zanox.com/soap/2011-05-01"];
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];

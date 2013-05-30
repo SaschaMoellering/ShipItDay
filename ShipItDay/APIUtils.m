@@ -100,4 +100,11 @@
     return hash;
 }
 
++ (NSString *) escape: (NSString *) yourInput {
+    
+    NSString *escapedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes( NULL,	 (CFStringRef)yourInput,	 NULL,	 (CFStringRef)@"!’\"();:@&=+$,/?%#[]% ", kCFStringEncodingISOLatin1));
+    return escapedString;
+    
+}
+
 @end

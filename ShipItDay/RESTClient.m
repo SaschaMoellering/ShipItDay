@@ -9,9 +9,14 @@
 #import "RESTClient.h"
 #import "APIUtils.h"
 #import "NSString+MD5.h"
+#import "XMLReader.h"
+#import "AdSpaceItem.h"
 
 @implementation RESTClient
+@synthesize target;
+@synthesize pickData;
 
+#pragma mark Singleton
 + (RESTClient *)getInstance
 {
     static RESTClient *sharedRESTConnect;
@@ -25,13 +30,26 @@
     }
 }
 
-- (NSArray *)getAdspaces: (NSString *) connectID {
+#pragma mark AdSpaces
+- (void)getAdspaces: (NSString *) connectID {
     
     NSString *date = [APIUtils getDate];
     NSString *nonce = [self getNonceForREST];
-    NSString *signatureString = [self getSignatureForREST: nonce : @"GET" : @"/reports/leads/date/2012-03-21"];
+    NSString *signature = [self getSignatureForREST: nonce : @"GET" : @"/adspaces"];
     
-    return nil;
+    NSMutableString *restURL = [NSMutableString stringWithFormat: @"http://api.zanox.com/xml/2011-03-01/adspaces?connectid=%@&date=%@&signature=%@&nonce=%@",
+                                connectID,
+                                [APIUtils escape:date],
+                                [APIUtils escape:signature],
+                                [APIUtils escape:nonce]];
+    
+    NSURL *url = [NSURL URLWithString: restURL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: url];
+    [request setHTTPMethod:@"GET"];
+    
+    (void)[[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    return ;
 }
 
 // get nounce : an unique value
@@ -48,15 +66,8 @@
     NSString *timeIntervalStr = [num stringValue];
     NSString *randomNumberStr =[[NSNumber numberWithLong:randomNumber] stringValue];
     
-    //NSString *timeIntervalStr = [NSString stringWithFormat:@"%ll", timeInterval];
-    //NSString *randomNumberStr = [NSString stringWithFormat:@"%ll", randomNumber];
-    NSLog(@"Interval: <%@>", timeIntervalStr);
-    NSLog(@"RandomNumber: <%@>", randomNumberStr);
-    
     NSString *msg = [NSString stringWithFormat:@"%@%@", timeIntervalStr, randomNumberStr];
-    NSLog(@"MSG: %@", msg);
     NSString *nonce = [msg MD5];
-    NSLog(@"Nonce: %@", nonce);
     return nonce;
 }
 
@@ -91,21 +102,10 @@
     
     
     NSString *signToString =[NSString stringWithFormat:@"%@%@%@%@", service, method, timestamp, nonceString];
-    NSLog(@" --> Signstring: %@", signToString);
     
     // convert SignToString into UTF8-String
     NSString *utf8String = [NSString stringWithCString:[signToString cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
     
-    /*
-     NSString *utf8String = [signToString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-     */
-    NSLog(@"UTF8 String: %@",utf8String);
-    /*
-     NSLog(@"signToString:%@", signToString);
-     NSData *utf8Data = [signToString dataUsingEncoding:NSUTF8StringEncoding];
-     NSString *utf8String = [[NSString alloc] initWithData:utf8Data encoding:NSUTF8StringEncoding];
-     NSLog(@"signToString:%@", utf8String);
-     */
     return  utf8String;
 }
 
@@ -116,17 +116,85 @@
     // get SignToString
     NSString *signToString = [self getSignToStringMethodForREST: nounceValue :service :method];
     
-    // convertSignToString into HMAC-SHA1 coded string
-    //NSString *signatureString = [self encodeWithHmacsha1:signToString :[self getSecrectKey]];
-    
     NSString *signature = [APIUtils hmacsha1:signToString secret:[APIUtils getSecrectKey]];
     
-    // convert HMAC-SHA1 string into BASE64 encoding
-    //NSString *signature = [self sha1ith64Base: signatureString];
-    
-    NSLog(@"Signature: %@", signature);
-    
     return signature;
+}
+
+#pragma mark Network-handling
+
+-(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    
+    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+    int code = [httpResponse statusCode];
+    NSLog(@"Response status code : %i", code);
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    
+    NSDictionary *dic = [XMLReader dictionaryForXMLData:data error:nil];
+
+    NSDictionary *adSpaceResponse = [dic objectForKey:@"GetAdspacesResponse"];
+    NSDictionary *adSpaceResponseItems = [adSpaceResponse objectForKey:@"adspaceItems"];
+    
+    NSMutableArray *itemArr = [[NSMutableArray alloc] init];
+    
+    id tmpItem = [adSpaceResponseItems objectForKey:@"adspaceItem"];
+    
+    if ([tmpItem isMemberOfClass:[NSArray class]]) {
+        NSArray *adSpaceResponseItem = [adSpaceResponseItems objectForKey:@"adspaceItem"];
+        
+        for (NSDictionary *tmpItem in adSpaceResponseItem) {
+            NSDictionary *adSpaceResponseItem = [tmpItem objectForKey:@"adspaceItem"];
+            NSMutableArray *tmpArr = [self convertItem:adSpaceResponseItem];
+            [itemArr addObjectsFromArray:tmpArr];
+        }
+        
+    } else {
+        NSDictionary *adSpaceResponseItem = [adSpaceResponseItems objectForKey:@"adspaceItem"];
+        NSMutableArray *tmpArr = [self convertItem:adSpaceResponseItem];
+        [itemArr addObjectsFromArray:tmpArr];
+    }
+    
+    self.pickData = itemArr;
+    
+    [target performSelectorOnMainThread:@selector(fillPicker:)
+                             withObject:itemArr
+                          waitUntilDone:false];
+}
+
+- (NSMutableArray *)convertItem:(NSDictionary *) adSpaceResponseItem {
+    NSDictionary *name = [adSpaceResponseItem objectForKey:@"name"];
+    
+    NSDictionary *regions = [adSpaceResponseItem objectForKey:@"regions"];
+    NSArray *region = [regions objectForKey:@"region"];
+    
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *tmpItem in region) {
+        AdSpaceItem *item = [[AdSpaceItem alloc] init];
+        item.name = [name objectForKey:@"text"];
+        item.region = [tmpItem objectForKey:@"text"];
+        [items insertObject:item atIndex:0];
+    }
+    
+    return items;
+}
+
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    
+    NSLog(@"ERROR with connection: %@", error);
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+    NSArray * availableCookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://api.zanox.com"]];
+    NSDictionary * headers = [NSHTTPCookie requestHeaderFieldsWithCookies:availableCookies];
 }
 
 

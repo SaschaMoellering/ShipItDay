@@ -44,6 +44,7 @@
 		2BC144AA17575FF200CCAD27 /* libMBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC144A917575FE000CCAD27 /* libMBProgressHUD.a */; };
 		2BC144AF175763FA00CCAD27 /* RESTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC144AE175763FA00CCAD27 /* RESTClient.m */; };
 		2BC144B21757651900CCAD27 /* APIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC144B11757651900CCAD27 /* APIUtils.m */; };
+		2BC144B5175784E300CCAD27 /* AdSpaceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC144B4175784E300CCAD27 /* AdSpaceItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,8 @@
 		2BC144AE175763FA00CCAD27 /* RESTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTClient.m; sourceTree = "<group>"; };
 		2BC144B01757651800CCAD27 /* APIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIUtils.h; sourceTree = "<group>"; };
 		2BC144B11757651900CCAD27 /* APIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIUtils.m; sourceTree = "<group>"; };
+		2BC144B3175784E300CCAD27 /* AdSpaceItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdSpaceItem.h; sourceTree = "<group>"; };
+		2BC144B4175784E300CCAD27 /* AdSpaceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdSpaceItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +245,8 @@
 				2BC144AE175763FA00CCAD27 /* RESTClient.m */,
 				2BC144B01757651800CCAD27 /* APIUtils.h */,
 				2BC144B11757651900CCAD27 /* APIUtils.m */,
+				2BC144B3175784E300CCAD27 /* AdSpaceItem.h */,
+				2BC144B4175784E300CCAD27 /* AdSpaceItem.m */,
 			);
 			name = "zanox-api";
 			sourceTree = "<group>";
@@ -390,6 +395,7 @@
 				2BC144A31757430300CCAD27 /* XMLReader.m in Sources */,
 				2BC144AF175763FA00CCAD27 /* RESTClient.m in Sources */,
 				2BC144B21757651900CCAD27 /* APIUtils.m in Sources */,
+				2BC144B5175784E300CCAD27 /* AdSpaceItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
