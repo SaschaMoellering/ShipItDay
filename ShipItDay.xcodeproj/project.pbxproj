@@ -40,7 +40,28 @@
 		2B0B0FC71756AF6E00178F8A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0B0FC01756AF6E00178F8A /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2B0B0FC91756B14E00178F8A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0B0FC81756B14E00178F8A /* SystemConfiguration.framework */; };
 		2B0B0FCD1756B1A700178F8A /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0B0FCC1756B1A700178F8A /* libz.1.2.5.dylib */; };
+		2BC144A31757430300CCAD27 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC144A21757430300CCAD27 /* XMLReader.m */; };
+		2BC144AA17575FF200CCAD27 /* libMBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC144A917575FE000CCAD27 /* libMBProgressHUD.a */; };
+		2BC144AF175763FA00CCAD27 /* RESTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC144AE175763FA00CCAD27 /* RESTClient.m */; };
+		2BC144B21757651900CCAD27 /* APIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC144B11757651900CCAD27 /* APIUtils.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2BC144A817575FE000CCAD27 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2BC144A417575FE000CCAD27 /* MBProgressHUD.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D286A7491518C70F00E13FB8;
+			remoteInfo = MBProgressHUD;
+		};
+		2BC144AB17575FFD00CCAD27 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2BC144A417575FE000CCAD27 /* MBProgressHUD.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D286A7481518C70F00E13FB8;
+			remoteInfo = MBProgressHUD;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2B0B0F3D1756A4F600178F8A /* ShipItDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShipItDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +117,13 @@
 		2B0B0FC81756B14E00178F8A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2B0B0FCA1756B18200178F8A /* lazydylib1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = lazydylib1.o; path = usr/lib/lazydylib1.o; sourceTree = SDKROOT; };
 		2B0B0FCC1756B1A700178F8A /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		2BC144A11757430300CCAD27 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
+		2BC144A21757430300CCAD27 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
+		2BC144A417575FE000CCAD27 /* MBProgressHUD.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MBProgressHUD.xcodeproj; path = ../../git/MBProgressHUD/MBProgressHUD.xcodeproj; sourceTree = "<group>"; };
+		2BC144AD175763FA00CCAD27 /* RESTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESTClient.h; sourceTree = "<group>"; };
+		2BC144AE175763FA00CCAD27 /* RESTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTClient.m; sourceTree = "<group>"; };
+		2BC144B01757651800CCAD27 /* APIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIUtils.h; sourceTree = "<group>"; };
+		2BC144B11757651900CCAD27 /* APIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BC144AA17575FF200CCAD27 /* libMBProgressHUD.a in Frameworks */,
 				2B0B0FCD1756B1A700178F8A /* libz.1.2.5.dylib in Frameworks */,
 				2B0B0FC91756B14E00178F8A /* SystemConfiguration.framework in Frameworks */,
 				2B0B0F7A1756A6A700178F8A /* AudioToolbox.framework in Frameworks */,
@@ -121,6 +150,7 @@
 		2B0B0F341756A4F600178F8A = {
 			isa = PBXGroup;
 			children = (
+				2BC144A417575FE000CCAD27 /* MBProgressHUD.xcodeproj */,
 				2B0B0FCC1756B1A700178F8A /* libz.1.2.5.dylib */,
 				2B0B0FCA1756B18200178F8A /* lazydylib1.o */,
 				2B0B0FC81756B14E00178F8A /* SystemConfiguration.framework */,
@@ -202,10 +232,16 @@
 		2B0B0F7B1756A79F00178F8A /* zanox-api */ = {
 			isa = PBXGroup;
 			children = (
+				2BC144A11757430300CCAD27 /* XMLReader.h */,
+				2BC144A21757430300CCAD27 /* XMLReader.m */,
 				2B0B0F7C1756A7D700178F8A /* SoapConnect.h */,
 				2B0B0F7D1756A7D700178F8A /* SoapConnect.m */,
 				2B0B0F7F1756A80A00178F8A /* NSString+MD5.h */,
 				2B0B0F801756A80A00178F8A /* NSString+MD5.m */,
+				2BC144AD175763FA00CCAD27 /* RESTClient.h */,
+				2BC144AE175763FA00CCAD27 /* RESTClient.m */,
+				2BC144B01757651800CCAD27 /* APIUtils.h */,
+				2BC144B11757651900CCAD27 /* APIUtils.m */,
 			);
 			name = "zanox-api";
 			sourceTree = "<group>";
@@ -241,6 +277,14 @@
 			path = ASIHTTPRequest;
 			sourceTree = "<group>";
 		};
+		2BC144A517575FE000CCAD27 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2BC144A917575FE000CCAD27 /* libMBProgressHUD.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -255,6 +299,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				2BC144AC17575FFD00CCAD27 /* PBXTargetDependency */,
 			);
 			name = ShipItDay;
 			productName = ShipItDay;
@@ -280,12 +325,28 @@
 			mainGroup = 2B0B0F341756A4F600178F8A;
 			productRefGroup = 2B0B0F3E1756A4F600178F8A /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2BC144A517575FE000CCAD27 /* Products */;
+					ProjectRef = 2BC144A417575FE000CCAD27 /* MBProgressHUD.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				2B0B0F3C1756A4F600178F8A /* ShipItDay */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2BC144A917575FE000CCAD27 /* libMBProgressHUD.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMBProgressHUD.a;
+			remoteRef = 2BC144A817575FE000CCAD27 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		2B0B0F3B1756A4F600178F8A /* Resources */ = {
@@ -326,10 +387,21 @@
 				2B0B0FC51756AF6E00178F8A /* ASINetworkQueue.m in Sources */,
 				2B0B0FC61756AF6E00178F8A /* ASINSStringAdditions.m in Sources */,
 				2B0B0FC71756AF6E00178F8A /* Reachability.m in Sources */,
+				2BC144A31757430300CCAD27 /* XMLReader.m in Sources */,
+				2BC144AF175763FA00CCAD27 /* RESTClient.m in Sources */,
+				2BC144B21757651900CCAD27 /* APIUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2BC144AC17575FFD00CCAD27 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MBProgressHUD;
+			targetProxy = 2BC144AB17575FFD00CCAD27 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2B0B0F491756A4F600178F8A /* InfoPlist.strings */ = {
@@ -468,6 +540,7 @@
 				2B0B0F701756A4F600178F8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

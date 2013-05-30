@@ -8,10 +8,120 @@
 
 #import "SoapConnect.h"
 #import "ASIFormDataRequest.h"
+#import "NSString+MD5.h"
+#import "XMLReader.h"
+#import "APIUtils.h"
 
 @implementation SoapConnect
 
 @synthesize authToken, urlStringArray;
+@synthesize soapData;
+
+#pragma Singleton
+
++ (SoapConnect *)getInstance
+{
+    static SoapConnect *sharedSoapConnect;
+    
+    @synchronized(self)
+    {
+        if (!sharedSoapConnect)
+            sharedSoapConnect = [[SoapConnect alloc] init];
+        
+        return sharedSoapConnect;
+    }
+}
+
+#pragma Request-handling
+
+/* get the response request, if request succeds at server */
+- (void)requestFinished:(ASIHTTPRequest *)request {
+	
+    // get url components int array
+    NSString *URLString = [NSString stringWithFormat:@"%@",[request url]];
+    urlStringArray = [self getDataOfQueryString:URLString];
+    
+    // get authtoken from array with url components
+    authToken = [self getAuthTokenValue: urlStringArray];
+}
+
+/* get the response request, if request fails at server */
+- (void)requestFailed:(ASIHTTPRequest *)request {
+	
+    int statusCode = [request responseStatusCode];
+    NSString *statusMessage = [request responseStatusMessage];
+    NSLog(@"Code %i Message :%@  Header :%@  Cookies: %@  ResponseData: %@",statusCode,statusMessage,[request responseHeaders], [request responseCookies],[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding]);
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    [soapData setLength:0];
+    NSLog(@"Response: %@", [response URL]);
+}
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    
+    [soapData appendData:data];
+    NSLog(@"Data: %@",[[NSString alloc] initWithData:data encoding: NSASCIIStringEncoding]);
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    
+    NSLog(@"ERROR with theConenction");
+}
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    NSLog(@"DONE. Received Bytes");
+    
+    NSLog(@"XML Parsing...");
+    
+    // converts 'XML' DATA into dictionary form
+    NSError *parseError = nil;
+    NSDictionary *responseValues = [XMLReader dictionaryForXMLData: soapData error:parseError];
+    
+    NSLog(@"values: %@", responseValues);
+    
+    for( NSString *aKey in [responseValues allKeys] )
+    {
+        // do something like a log:
+        NSLog(@"Key: %@", [responseValues objectForKey: aKey]);
+    }
+    
+    NSMutableDictionary *fieldValues =  [responseValues objectForKey:@"soap:Envelope"];
+    fieldValues = [fieldValues objectForKey:@"soap:Body"];
+    fieldValues = [fieldValues objectForKey:@"ns2:getSessionResponse"];
+    fieldValues = [fieldValues objectForKey:@"session"];
+    NSDictionary *connectID = [fieldValues objectForKey:@"connectId"];
+    NSDictionary *secretKey = [fieldValues objectForKey:@"secretKey"];
+    NSDictionary *sessionExpires = [fieldValues objectForKey:@"sessionExpires"];
+    NSDictionary *sessionKey = [fieldValues objectForKey:@"sessionKey"];
+    
+    NSLog(@"Values: %@", fieldValues);
+    NSLog(@"ConnectID: %@", connectID);
+    NSLog(@"Secret Key: %@", secretKey);
+    NSLog(@"Session Expires : %@", sessionExpires);
+    NSLog(@"Session Key: %@", sessionKey);
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *connectIDvalue = [connectID objectForKey:@"text"];
+    [userDefaults setObject:connectIDvalue forKey:@"CONNECTID"];
+    NSLog(@"connectID: %@",connectIDvalue );
+    
+    NSString *secretkeyValue = [secretKey objectForKey:@"text"];
+    [userDefaults setObject: secretkeyValue forKey:@"SECRECTKEY"];
+    NSLog(@"Secret Key: %@", secretkeyValue);
+    
+    NSString *sessionexpiresValue = [sessionExpires objectForKey:@"text"];
+    [userDefaults setObject:sessionexpiresValue forKey:@"SESSIONEXPIRES"];
+    NSLog(@"Session Expires: %@", sessionexpiresValue);
+    
+    NSString *sessionkeyValue = [sessionKey objectForKey:@"text"];
+    [userDefaults setObject: sessionkeyValue forKey:@"SESSIONKEY"];
+    NSLog(@"Session Key: %@", sessionkeyValue);
+    
+}
+
+#pragma Auth-Token and query-parsing
 
 // get auth token from zanoxconnect
 - (NSString *)getAuthToken:(NSString *)username password:(NSString *)password {
@@ -29,17 +139,6 @@
     [request startSynchronous];
     
     return authToken;
-}
-
-/* get the response request, if request succeds at server */
-- (void)requestFinished:(ASIHTTPRequest *)request {
-	
-    // get url components int array
-    NSString *URLString = [NSString stringWithFormat:@"%@",[request url]];
-    urlStringArray = [self getDataOfQueryString:URLString];
-    
-    // get authtoken from array with url components
-    authToken = [self getAuthTokenValue: urlStringArray];
 }
 
 /* get authtoken from the array with url componenets  */
@@ -70,20 +169,131 @@
     return arrQueryStringData;
 }
 
-- (NSString *)hmacsha1:(NSString *)data secret:(NSString *)key {
+#pragma generating timestamps
+
+//get timestamp
+- (NSString *)getTimeStamp {
     
-    const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];
-    const char *cData = [data cStringUsingEncoding:NSASCIIStringEncoding];
+    NSString *dateString;
+    NSDate *date = [NSDate date];
     
-    unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    // Note: We have to force the locale to "en_US" to avoid unexpected issues formatting data
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [dateFormatter setLocale: usLocale];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     
-    CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+    /* if ([@"rest" isEqualToString:@"rest"]) {
+     [dateFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss z"];
+     dateString = [dateFormatter stringFromDate:date];
+     } else {*/
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    dateString = [dateFormatter stringFromDate:date];
+    //}
     
-    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC length:sizeof(cHMAC)];
+    return dateString;
+}
+
+#pragma Signature
+
+// get signature
+- (NSString *)getSignature: (NSString *)nounceValue{
     
-    NSString *hash = [HMAC base64EncodedString];
+    // get SignToString
+    NSString *signToString = [self getSignToStringMethod: nounceValue];
     
-    return hash;
+    // convertSignToString into HMAC-SHA1 coded string
+    //NSString *signatureString = [self encodeWithHmacsha1:signToString :[self getSecrectKey]];
+    
+    NSString *signature = [APIUtils hmacsha1:signToString secret:[APIUtils getSecrectKey]];
+    
+    // convert HMAC-SHA1 string into BASE64 encoding
+    //NSString *signature = [self sha1ith64Base: signatureString];
+    
+    NSLog(@"Signature: %@", signature);
+    
+    return signature;
+}
+
+#pragma Sign to String
+
+// get SignToString
+- (NSString *)getSignToStringMethod:(NSString *)nonceString{
+    
+    NSString *service = @"connectservice";
+    NSString *method   = @"getsession";
+    NSString *timestamp   = [self getTimeStamp];
+    
+    
+    NSString *signToString =[NSString stringWithFormat:@"%@%@%@%@", service, method, timestamp, nonceString];
+    NSLog(@" --> Signstring: %@", signToString);
+    
+    // convert SignToString into UTF8-String
+    NSString *utf8String = [NSString stringWithCString:[signToString cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
+
+    NSLog(@"UTF8 String: %@",utf8String);
+    return  utf8String;
+}
+
+#pragma SOAP-Requests
+
+//get SOAP Request for GetSession
+- (NSMutableString *)createSoapRequest {
+    
+    NSString *nonce = [APIUtils getNonce];
+    NSString *authTokenValue = authToken;
+    
+    NSString *publicKey = [APIUtils getPublicKey];
+    NSString *signature = [self getSignature: nonce];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:signature forKey:@"SIGNATURE"];
+    
+    NSString *timeStamp = [self getTimeStamp];
+    //NSString *nounceValue = [self getNounce];
+    
+    
+    NSMutableString *soapRequest = [[NSMutableString alloc] initWithString:@"<soapenv:Envelope xmlns:ns=\"http://auth.zanox.com/2011-05-01/\" xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">"];
+    [soapRequest appendString:@"<soapenv:Header/>"];
+    [soapRequest appendString:@"<soapenv:Body>"];
+    [soapRequest appendString:@"<ns:getSession>"];
+    [soapRequest appendString:@"<authToken>%@</authToken>"];
+    [soapRequest appendString:@"<publicKey>%@</publicKey>"];
+    [soapRequest appendString:@"<signature>%@</signature>"];
+    [soapRequest appendString:@"<nonce>%@</nonce>"];
+    [soapRequest appendString:@"<timestamp>%@</timestamp>"];
+    [soapRequest appendString:@"</ns:getSession>"];
+    [soapRequest appendString:@" </soapenv:Body>"];
+    [soapRequest appendString:@"</soapenv:Envelope>"];
+    
+    NSMutableString *soapRequestString =[NSMutableString stringWithFormat:soapRequest, authTokenValue, publicKey, signature, nonce, timeStamp];
+    
+    return soapRequestString;
+}
+
+//send SOAP Request for GetSession
+- (BOOL)sendSOAPRequest: (NSMutableString *)soapMessage {
+    
+    //log for soap request
+    NSLog(@"SOAP Request: %@", soapMessage);
+    
+    
+    NSURL *url = [NSURL URLWithString:@"https://auth.zanox.com/soap/2011-05-01"];
+    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
+    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
+    
+    [theRequest addValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [theRequest addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    [theRequest setHTTPMethod:@"POST"];
+    [theRequest setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+    if( theConnection )
+    {
+        soapData = [[NSMutableData alloc] init];
+        return YES;
+    }
+
+    return NO;
 }
 
 @end

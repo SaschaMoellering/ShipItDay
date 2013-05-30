@@ -17,8 +17,14 @@
 @property(nonatomic, strong) NSString *authToken;
 @property(nonatomic, strong) NSArray *urlStringArray;
 
+@property(nonatomic, strong) NSMutableData *soapData;
+
 - (NSString *)getAuthToken:(NSString *)username password:(NSString *)password;
 
-- (NSString *)hmacsha1:(NSString *)data secret:(NSString *)key;
++ (SoapConnect *)getInstance;
+
+- (NSMutableString *)createSoapRequest;
+
+- (BOOL)sendSOAPRequest: (NSMutableString *)soapMessage;
 
 @end
