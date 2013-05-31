@@ -9,16 +9,21 @@
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonHMAC.h>
 #import <CommonCrypto/CommonDigest.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
 #import "Base64.h"
 #import "SecondViewController.h"
+#import "LoginViewController.h"
 
-@interface SoapConnect : NSObject<NSURLConnectionDelegate, NSXMLParserDelegate>
+@interface SoapConnect : NSObject<NSURLConnectionDelegate, NSXMLParserDelegate> {
+    MBProgressHUD *HUD;
+}
 
 @property(nonatomic, strong) NSString *authToken;
 @property(nonatomic, strong) NSArray *urlStringArray;
 @property(nonatomic, strong) NSMutableData *soapData;
-@property(nonatomic, strong) SecondViewController *target;
+@property(nonatomic, strong) LoginViewController *loginTarget;
+@property(nonatomic, strong) SecondViewController *secondTarget;
 
 - (NSString *)getAuthToken:(NSString *)username password:(NSString *)password;
 

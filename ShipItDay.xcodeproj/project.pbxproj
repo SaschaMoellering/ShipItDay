@@ -41,23 +41,28 @@
 		2B0B0FC91756B14E00178F8A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0B0FC81756B14E00178F8A /* SystemConfiguration.framework */; };
 		2B0B0FCD1756B1A700178F8A /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0B0FCC1756B1A700178F8A /* libz.1.2.5.dylib */; };
 		2BC144A31757430300CCAD27 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC144A21757430300CCAD27 /* XMLReader.m */; };
-		2BC144AA17575FF200CCAD27 /* libMBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC144A917575FE000CCAD27 /* libMBProgressHUD.a */; };
 		2BC144AF175763FA00CCAD27 /* RESTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC144AE175763FA00CCAD27 /* RESTClient.m */; };
 		2BC144B21757651900CCAD27 /* APIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC144B11757651900CCAD27 /* APIUtils.m */; };
 		2BC144B5175784E300CCAD27 /* AdSpaceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC144B4175784E300CCAD27 /* AdSpaceItem.m */; };
+		5C5CDCCC1757E2690029B210 /* libMBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5CDCC91757E24B0029B210 /* libMBProgressHUD.a */; };
+		5C5CDCD21757E67F0029B210 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C5CDCD11757E67F0029B210 /* LoginViewController.m */; };
+		5C5CDCD41757EDE60029B210 /* HexColorPicker-1.6.1.zip in Resources */ = {isa = PBXBuildFile; fileRef = 5C5CDCD31757EDE60029B210 /* HexColorPicker-1.6.1.zip */; };
+		5C5CDCDC1757FBF50029B210 /* bump_ios_57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C5CDCDB1757FBF50029B210 /* bump_ios_57x57.png */; };
+		5C5CDCDE1757FC090029B210 /* bump_ios_114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C5CDCDD1757FC090029B210 /* bump_ios_114x114.png */; };
+		5C5CDCE01757FD2B0029B210 /* splashscreen_mobile_app_bg_640x960.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C5CDCDF1757FD2B0029B210 /* splashscreen_mobile_app_bg_640x960.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2BC144A817575FE000CCAD27 /* PBXContainerItemProxy */ = {
+		5C5CDCC81757E24B0029B210 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2BC144A417575FE000CCAD27 /* MBProgressHUD.xcodeproj */;
+			containerPortal = 5C5CDCC41757E24B0029B210 /* MBProgressHUD.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D286A7491518C70F00E13FB8;
 			remoteInfo = MBProgressHUD;
 		};
-		2BC144AB17575FFD00CCAD27 /* PBXContainerItemProxy */ = {
+		5C5CDCCA1757E2630029B210 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2BC144A417575FE000CCAD27 /* MBProgressHUD.xcodeproj */;
+			containerPortal = 5C5CDCC41757E24B0029B210 /* MBProgressHUD.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = D286A7481518C70F00E13FB8;
 			remoteInfo = MBProgressHUD;
@@ -120,13 +125,19 @@
 		2B0B0FCC1756B1A700178F8A /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		2BC144A11757430300CCAD27 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
 		2BC144A21757430300CCAD27 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
-		2BC144A417575FE000CCAD27 /* MBProgressHUD.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MBProgressHUD.xcodeproj; path = ../../git/MBProgressHUD/MBProgressHUD.xcodeproj; sourceTree = "<group>"; };
 		2BC144AD175763FA00CCAD27 /* RESTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESTClient.h; sourceTree = "<group>"; };
 		2BC144AE175763FA00CCAD27 /* RESTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTClient.m; sourceTree = "<group>"; };
 		2BC144B01757651800CCAD27 /* APIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIUtils.h; sourceTree = "<group>"; };
 		2BC144B11757651900CCAD27 /* APIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIUtils.m; sourceTree = "<group>"; };
 		2BC144B3175784E300CCAD27 /* AdSpaceItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdSpaceItem.h; sourceTree = "<group>"; };
 		2BC144B4175784E300CCAD27 /* AdSpaceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdSpaceItem.m; sourceTree = "<group>"; };
+		5C5CDCC41757E24B0029B210 /* MBProgressHUD.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MBProgressHUD.xcodeproj; path = ../../Documents/git/MBProgressHUD/MBProgressHUD.xcodeproj; sourceTree = "<group>"; };
+		5C5CDCD01757E67F0029B210 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		5C5CDCD11757E67F0029B210 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		5C5CDCD31757EDE60029B210 /* HexColorPicker-1.6.1.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "HexColorPicker-1.6.1.zip"; sourceTree = "<group>"; };
+		5C5CDCDB1757FBF50029B210 /* bump_ios_57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bump_ios_57x57.png; sourceTree = "<group>"; };
+		5C5CDCDD1757FC090029B210 /* bump_ios_114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bump_ios_114x114.png; sourceTree = "<group>"; };
+		5C5CDCDF1757FD2B0029B210 /* splashscreen_mobile_app_bg_640x960.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = splashscreen_mobile_app_bg_640x960.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,7 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BC144AA17575FF200CCAD27 /* libMBProgressHUD.a in Frameworks */,
+				5C5CDCCC1757E2690029B210 /* libMBProgressHUD.a in Frameworks */,
 				2B0B0FCD1756B1A700178F8A /* libz.1.2.5.dylib in Frameworks */,
 				2B0B0FC91756B14E00178F8A /* SystemConfiguration.framework in Frameworks */,
 				2B0B0F7A1756A6A700178F8A /* AudioToolbox.framework in Frameworks */,
@@ -153,7 +164,10 @@
 		2B0B0F341756A4F600178F8A = {
 			isa = PBXGroup;
 			children = (
-				2BC144A417575FE000CCAD27 /* MBProgressHUD.xcodeproj */,
+				5C5CDCDF1757FD2B0029B210 /* splashscreen_mobile_app_bg_640x960.jpg */,
+				5C5CDCDD1757FC090029B210 /* bump_ios_114x114.png */,
+				5C5CDCDB1757FBF50029B210 /* bump_ios_57x57.png */,
+				5C5CDCC41757E24B0029B210 /* MBProgressHUD.xcodeproj */,
 				2B0B0FCC1756B1A700178F8A /* libz.1.2.5.dylib */,
 				2B0B0FCA1756B18200178F8A /* lazydylib1.o */,
 				2B0B0FC81756B14E00178F8A /* SystemConfiguration.framework */,
@@ -205,6 +219,8 @@
 				2B0B0F681756A4F600178F8A /* second.png */,
 				2B0B0F6A1756A4F600178F8A /* second@2x.png */,
 				2B0B0F471756A4F600178F8A /* Supporting Files */,
+				5C5CDCD01757E67F0029B210 /* LoginViewController.h */,
+				5C5CDCD11757E67F0029B210 /* LoginViewController.m */,
 			);
 			path = ShipItDay;
 			sourceTree = "<group>";
@@ -212,6 +228,7 @@
 		2B0B0F471756A4F600178F8A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5C5CDCD31757EDE60029B210 /* HexColorPicker-1.6.1.zip */,
 				2B0B0F481756A4F600178F8A /* ShipItDay-Info.plist */,
 				2B0B0F491756A4F600178F8A /* InfoPlist.strings */,
 				2B0B0F4C1756A4F600178F8A /* main.m */,
@@ -282,10 +299,10 @@
 			path = ASIHTTPRequest;
 			sourceTree = "<group>";
 		};
-		2BC144A517575FE000CCAD27 /* Products */ = {
+		5C5CDCC51757E24B0029B210 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2BC144A917575FE000CCAD27 /* libMBProgressHUD.a */,
+				5C5CDCC91757E24B0029B210 /* libMBProgressHUD.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -304,7 +321,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				2BC144AC17575FFD00CCAD27 /* PBXTargetDependency */,
+				5C5CDCCB1757E2630029B210 /* PBXTargetDependency */,
 			);
 			name = ShipItDay;
 			productName = ShipItDay;
@@ -332,8 +349,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 2BC144A517575FE000CCAD27 /* Products */;
-					ProjectRef = 2BC144A417575FE000CCAD27 /* MBProgressHUD.xcodeproj */;
+					ProductGroup = 5C5CDCC51757E24B0029B210 /* Products */;
+					ProjectRef = 5C5CDCC41757E24B0029B210 /* MBProgressHUD.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -344,11 +361,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		2BC144A917575FE000CCAD27 /* libMBProgressHUD.a */ = {
+		5C5CDCC91757E24B0029B210 /* libMBProgressHUD.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libMBProgressHUD.a;
-			remoteRef = 2BC144A817575FE000CCAD27 /* PBXContainerItemProxy */;
+			remoteRef = 5C5CDCC81757E24B0029B210 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -368,6 +385,10 @@
 				2B0B0F641756A4F600178F8A /* first@2x.png in Resources */,
 				2B0B0F691756A4F600178F8A /* second.png in Resources */,
 				2B0B0F6B1756A4F600178F8A /* second@2x.png in Resources */,
+				5C5CDCD41757EDE60029B210 /* HexColorPicker-1.6.1.zip in Resources */,
+				5C5CDCDC1757FBF50029B210 /* bump_ios_57x57.png in Resources */,
+				5C5CDCDE1757FC090029B210 /* bump_ios_114x114.png in Resources */,
+				5C5CDCE01757FD2B0029B210 /* splashscreen_mobile_app_bg_640x960.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,16 +417,17 @@
 				2BC144AF175763FA00CCAD27 /* RESTClient.m in Sources */,
 				2BC144B21757651900CCAD27 /* APIUtils.m in Sources */,
 				2BC144B5175784E300CCAD27 /* AdSpaceItem.m in Sources */,
+				5C5CDCD21757E67F0029B210 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		2BC144AC17575FFD00CCAD27 /* PBXTargetDependency */ = {
+		5C5CDCCB1757E2630029B210 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MBProgressHUD;
-			targetProxy = 2BC144AB17575FFD00CCAD27 /* PBXContainerItemProxy */;
+			targetProxy = 5C5CDCCA1757E2630029B210 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

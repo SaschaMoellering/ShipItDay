@@ -16,7 +16,8 @@
 
 @synthesize authToken, urlStringArray;
 @synthesize soapData;
-@synthesize target;
+@synthesize loginTarget;
+@synthesize secondTarget;
 
 #pragma mark Singleton
 
@@ -59,11 +60,12 @@
 }
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    
     [soapData appendData:data];
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+    NSLog(@"%@", error);
+    [HUD hide:YES];
 }
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
@@ -104,8 +106,10 @@
     [userDefaults setObject: sessionkeyValue forKey:@"SESSIONKEY"];
     NSLog(@"Session Key: %@", sessionkeyValue);
     
-    [target performSelectorOnMainThread:@selector(getAdSpaces)
-                           withObject:nil
+    [HUD hide:YES afterDelay:2];
+    
+    [loginTarget performSelectorOnMainThread:@selector(loginCallback:)
+                           withObject:sessionkeyValue
                         waitUntilDone:false];
 }
 
@@ -267,6 +271,13 @@
     [theRequest addValue: msgLength forHTTPHeaderField:@"Content-Length"];
     [theRequest setHTTPMethod:@"POST"];
     [theRequest setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    HUD = [[MBProgressHUD alloc] initWithView:loginTarget.view];
+    [loginTarget.view addSubview:HUD];
+    
+    HUD.delegate = loginTarget;
+    [HUD show:YES];
+
     
     NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
     if( theConnection )

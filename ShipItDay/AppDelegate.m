@@ -14,7 +14,7 @@
 
 - (void) configureBump {
     // userID is a string that you could use as the user's name, or an ID that is semantic within your environment
-    [BumpClient configureWithAPIKey:@"162bd018af6b41359305a4257f590dd3" andUserID:[[UIDevice currentDevice] name]];
+    [BumpClient configureWithAPIKey:@"a9703d11f8cb445ba9c50adddce8c483" andUserID:[[UIDevice currentDevice] name]];
     
     [[BumpClient sharedClient] setMatchBlock:^(BumpChannelID channel) {
         NSLog(@"Matched with user: %@", [[BumpClient sharedClient] userIDForChannel:channel]);
@@ -69,6 +69,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [self configureBump];
     return YES;
 }
 							

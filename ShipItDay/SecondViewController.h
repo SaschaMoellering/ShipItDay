@@ -17,7 +17,6 @@
 
 - (void)getAdSpaces;
 - (IBAction)bumpAction:(id)sender;
-- (IBAction)loadAction:(id)sender;
 - (void)fillPicker:(NSMutableArray *)pickerData;
 
 @end

@@ -64,25 +64,8 @@
 
 #pragma mark action
 
-- (IBAction)loadAction:(id)sender {
-    
-}
-
 - (IBAction)bumpAction:(id)sender {
-    [self login];
-}
-
-- (void)login {
-    
-    SoapConnect *soapClient = [SoapConnect getInstance];
-    soapClient.target = self;
-    NSMutableString *soapRequest = nil;
-        
-    NSString *authToken = [soapClient getAuthToken:@"venkateswarlu.nookala@zanox.com" password:@"KhannAFEB28"];
-    soapClient.authToken = authToken;
-        
-    soapRequest = [soapClient createSoapRequest];
-    BOOL result = [soapClient sendSOAPRequest:soapRequest];
+    [self getAdSpaces];
 }
 
 - (void) getAdSpaces {
