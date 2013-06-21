@@ -78,20 +78,16 @@
     soapClient.loginTarget = self;
     NSMutableString *soapRequest = nil;
     
-    
-    NSString *authToken = [soapClient getAuthToken:@"venkateswarlu.nookala@zanox.com" password:@"KhannAFEB28"];
-    /*
     NSString *authToken = [soapClient
                            getAuthToken:usernameField.text
                            password:passwordField.text];
-    */
+    
     
     NSLog(@" --> username %@", usernameField.text);
     NSLog(@" --> password %@", passwordField.text);
     soapClient.authToken = authToken;
     
-    soapRequest = [soapClient createSoapRequest];
-    BOOL result = [soapClient sendSOAPRequest:soapRequest];
+    (void) [soapClient sendSOAPRequest:soapRequest];
 }
 
 - (void)hudWasHidden:(MBProgressHUD *)hud {

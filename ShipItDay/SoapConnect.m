@@ -52,6 +52,8 @@
 	
     int statusCode = [request responseStatusCode];
     NSString *statusMessage = [request responseStatusMessage];
+    
+    NSLog(@"Oops: %@ %d", statusMessage, statusCode);
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -118,10 +120,6 @@
 // get auth token from zanoxconnect
 - (NSString *)getAuthToken:(NSString *)username password:(NSString *)password {
     
-    //NSString *username = @"venkateswarlu.nookala@zanox.com";
-    //NSString *password = @"KhannAFEB28";
-    //NSString *username = @"globalloonan2";
-    //NSString *password = @"test01";
 	NSURL *url = [NSURL URLWithString:@"https://auth.zanox.com/login?appid=9B7A7DB4A06987BC78DD"];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request setDelegate:self];
